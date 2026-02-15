@@ -9,7 +9,7 @@ using ShoeTracker.Web.Data;
 
 namespace ShoeTracker.Web.Data.Migrations
 {
-    [DbContext(typeof(ApplicationDbContext))]
+    [DbContext(typeof(ShoeTrackerDbContext))]
     [Migration("00000000000000_CreateIdentitySchema")]
     partial class CreateIdentitySchema
     {

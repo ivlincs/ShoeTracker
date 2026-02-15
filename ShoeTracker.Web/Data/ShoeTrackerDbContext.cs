@@ -3,9 +3,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ShoeTracker.Web.Data
 {
-    public class ApplicationDbContext : IdentityDbContext
+    public class ShoeTrackerDbContext : IdentityDbContext
     {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+        public ShoeTrackerDbContext(DbContextOptions<ShoeTrackerDbContext> options)
             : base(options)
         {
         }
