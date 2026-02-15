@@ -15,4 +15,11 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.24" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ShoeTracker.Common\ShoeTracker.Common.csproj" />
+    <ProjectReference Include="..\ShoeTracker.Data.Models\ShoeTracker.Data.Models.csproj" />
+    <ProjectReference Include="..\ShoeTracker.Data\ShoeTracker.Data.csproj" />
+    <ProjectReference Include="..\ShoeTracker.Service.Core\ShoeTracker.Service.Core.csproj" />
+  </ItemGroup>
+
 </Project>

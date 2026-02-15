@@ -1,26 +1,30 @@
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using ShoeTracker.Web.Data;
-
 namespace ShoeTracker.Web
 {
+    using Microsoft.AspNetCore.Identity;
+    using Microsoft.EntityFrameworkCore;
+
+    using ShoeTracker.Data;
+
     public class Program
     {
         public static void Main(string[] args)
         {
-            var builder = WebApplication.CreateBuilder(args);
+            WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-            var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+            string? connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+
+            /* Register DbContext for DI */
             builder.Services.AddDbContext<ShoeTrackerDbContext>(options =>
                 options.UseSqlServer(connectionString));
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
+            /* Configure and register Identity for DI */
             builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ShoeTrackerDbContext>();
             builder.Services.AddControllersWithViews();
 
-            var app = builder.Build();
+            WebApplication app = builder.Build();
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
@@ -39,6 +43,7 @@ namespace ShoeTracker.Web
 
             app.UseRouting();
 
+            /* Allows us to use default Authorization of Identity */
             app.UseAuthorization();
 
             app.MapControllerRoute(

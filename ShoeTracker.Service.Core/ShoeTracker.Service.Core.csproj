@@ -6,4 +6,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ShoeTracker.Data.Models\ShoeTracker.Data.Models.csproj" />
+    <ProjectReference Include="..\ShoeTracker.Data\ShoeTracker.Data.csproj" />
+  </ItemGroup>
+
 </Project>
