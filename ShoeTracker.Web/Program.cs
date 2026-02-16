@@ -23,7 +23,7 @@ namespace ShoeTracker.Web
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
             /* Configure and register Identity for DI */
-            builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+            builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
                 .AddEntityFrameworkStores<ShoeTrackerDbContext>();
 
             /* Register sevices */
