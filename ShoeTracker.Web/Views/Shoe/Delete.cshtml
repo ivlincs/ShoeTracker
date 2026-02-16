@@ -1,0 +1,45 @@
+﻿@model ShoeTracker.Data.Models.Entities.Shoe
+
+@{
+    ViewData["Title"] = "Delete Shoe";
+}
+
+<div class="container mt-4">
+    <h2 class="text-danger">
+        <i class="bi bi-exclamation-triangle"></i> Delete Running Shoe
+    </h2>
+
+    <div class="alert alert-danger mt-4">
+        <h5>Are you sure?</h5>
+        <p>This will delete all runs associated with this shoe!</p>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            <dl class="row">
+                <dt class="col-sm-3">Brand:</dt>
+                <dd class="col-sm-9">@Model.Brand</dd>
+
+                <dt class="col-sm-3">Model:</dt>
+                <dd class="col-sm-9">@Model.Model</dd>
+
+                <dt class="col-sm-3">Category:</dt>
+                <dd class="col-sm-9">@Model.Category.Name</dd>
+
+                <dt class="col-sm-3">Total Mileage:</dt>
+                <dd class="col-sm-9">@Model.TotalDistance.ToString("F1") km</dd>
+
+                <dt class="col-sm-3">Runs:</dt>
+                <dd class="col-sm-9">@Model.Runs.Count</dd>
+            </dl>
+        </div>
+    </div>
+
+    <form asp-action="Delete" method="post" class="mt-4">
+        <input type="hidden" asp-for="Id" />
+        <button type="submit" class="btn btn-danger">
+            <i class="bi bi-trash"></i> Yes, Delete
+        </button>
+        <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>

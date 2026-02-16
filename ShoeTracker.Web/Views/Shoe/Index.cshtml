@@ -1,0 +1,71 @@
+﻿@model IEnumerable<ShoeTracker.Data.Models.Entities.Shoe>
+
+@{
+    ViewData["Title"] = "My Running Shoes";
+}
+
+<div class="container mt-4">
+    <div class="row mb-4">
+        <div class="col">
+            <h2><i class="bi bi-shoe-fill"></i> My Running Shoes</h2>
+        </div>
+        <div class="col text-end">
+            <a asp-action="Create" class="btn btn-success">
+                <i class="bi bi-plus-circle"></i> Add Shoe
+            </a>
+        </div>
+    </div>
+
+    @if (!Model.Any())
+    {
+        <div class="alert alert-info">
+            <i class="bi bi-info-circle"></i> You don't have any shoes yet. Add your first pair!
+        </div>
+    }
+    else
+    {
+        <div class="row">
+            @foreach (var shoe in Model)
+            {
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title">@shoe.Brand @shoe.Model</h5>
+                            <p class="card-text">
+                                <strong>Category:</strong> @shoe.Category.Name<br />
+                                <strong>Mileage:</strong> @shoe.TotalDistance.ToString("F1") km<br />
+                                <strong>Purchase:</strong> @shoe.PurchaseDate.ToString("dd.MM.yyyy")<br />
+                                <strong>Runs:</strong> @shoe.Runs.Count
+                            </p>
+
+                            @{
+                                var percentage = (shoe.TotalDistance / 600.0) * 100;
+                                var progressClass = percentage < 50 ? "bg-success" : percentage < 80 ? "bg-warning" : "bg-danger";
+                            }
+
+                            <div class="progress mb-3" style="height: 25px;">
+                                <div class="progress-bar @progressClass"
+                                     role="progressbar"
+                                     style="width: @Math.Min(percentage, 100)%">
+                                    @percentage.ToString("F0")%
+                                </div>
+                            </div>
+
+                            @if (shoe.TotalDistance >= 600)
+                            {
+                                <div class="alert alert-warning p-2 mb-3">
+                                    <small><i class="bi bi-exclamation-triangle"></i> Time to replace!</small>
+                                </div>
+                            }
+                        </div>
+                        <div class="card-footer bg-transparent">
+                            <a asp-action="Details" asp-route-id="@shoe.Id" class="btn btn-sm btn-primary">Details</a>
+                            <a asp-action="Edit" asp-route-id="@shoe.Id" class="btn btn-sm btn-warning">Edit</a>
+                            <a asp-action="Delete" asp-route-id="@shoe.Id" class="btn btn-sm btn-danger">Delete</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>

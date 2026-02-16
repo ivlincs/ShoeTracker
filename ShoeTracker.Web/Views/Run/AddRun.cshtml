@@ -1,0 +1,47 @@
+﻿@{
+    ViewData["Title"] = "Add Run";
+    var shoe = ViewBag.Shoe as ShoeTracker.Data.Models.Entities.Shoe;
+}
+
+<div class="container mt-4">
+    <h2><i class="bi bi-plus-circle"></i> Add Run</h2>
+
+    <div class="alert alert-info">
+        <strong>Shoe:</strong> @shoe!.Brand @shoe.Model<br />
+        <strong>Category:</strong> @shoe.Category.Name<br />
+        <strong>Current Mileage:</strong> @shoe.TotalDistance.ToString("F1") km
+    </div>
+
+    <form asp-action="AddRun" method="post" class="mt-4">
+        <input type="hidden" name="shoeId" value="@shoe.Id" />
+
+        <div asp-validation-summary="All" class="text-danger"></div>
+
+        <div class="mb-3">
+            <label for="distance" class="form-label">Distance (km)</label>
+            <input type="number"
+                   name="distance"
+                   id="distance"
+                   class="form-control"
+                   step="0.1"
+                   min="0.1"
+                   max="200"
+                   placeholder="5.5"
+                   required />
+            <div class="form-text">Enter the distance of your run in kilometers.</div>
+        </div>
+
+        <div class="mt-4">
+            <button type="submit" class="btn btn-success">
+                <i class="bi bi-check-circle"></i> Add Run
+            </button>
+            <a asp-controller="Shoe" asp-action="Details" asp-route-id="@shoe.Id" class="btn btn-secondary">
+                Cancel
+            </a>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
