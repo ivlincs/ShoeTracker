@@ -1,6 +1,7 @@
 ﻿namespace ShoeTracker.Data.Models.Entities
 {
     using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
 
     public class Shoe
     {
@@ -22,6 +23,13 @@
 
         [Required]
         public string UserId { get; set; } = null!;
+
+        [Required]
+        [Display(Name = "Shoe Category")]
+        public int CategoryId { get; set; }
+
+        [ForeignKey(nameof(CategoryId))]
+        public Category Category { get; set; } = null!;
 
         //Nav Property
         public ICollection<Run> Runs { get; set; } = new List<Run>();
