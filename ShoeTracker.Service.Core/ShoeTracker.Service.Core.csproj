@@ -11,8 +11,4 @@
     <ProjectReference Include="..\ShoeTracker.Data\ShoeTracker.Data.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Services\" />
-  </ItemGroup>
-
 </Project>

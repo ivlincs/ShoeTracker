@@ -4,6 +4,8 @@ namespace ShoeTracker.Web
     using Microsoft.EntityFrameworkCore;
 
     using ShoeTracker.Data;
+    using ShoeTracker.Service.Core.Interfaces;
+    using ShoeTracker.Service.Core.Services;
 
     public class Program
     {
@@ -17,11 +19,17 @@ namespace ShoeTracker.Web
             /* Register DbContext for DI */
             builder.Services.AddDbContext<ShoeTrackerDbContext>(options =>
                 options.UseSqlServer(connectionString));
+
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
             /* Configure and register Identity for DI */
             builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ShoeTrackerDbContext>();
+
+            /* Register sevices */
+            builder.Services.AddScoped<IShoeService, ShoeService>();
+            builder.Services.AddScoped<IRunService, RunService>();
+
             builder.Services.AddControllersWithViews();
 
             WebApplication app = builder.Build();
