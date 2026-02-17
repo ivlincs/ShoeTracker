@@ -1,6 +1,5 @@
 ﻿namespace ShoeTracker.Common
 {
-
     public static class ValidationConstants
     {
         public static class Shoe

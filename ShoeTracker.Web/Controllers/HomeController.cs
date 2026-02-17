@@ -1,9 +1,9 @@
-using System.Diagnostics;
-using Microsoft.AspNetCore.Mvc;
-using ShoeTracker.Web.Models;
-
 namespace ShoeTracker.Web.Controllers
 {
+    using System.Diagnostics;
+    using Microsoft.AspNetCore.Mvc;
+    using ShoeTracker.Web.Models;
+
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;

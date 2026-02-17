@@ -11,16 +11,20 @@
 
         [Required]
         [MaxLength(BrandMaxLength)]
+        [Display(Name = "Brand")]
         public string Brand { get; set; } = null!;
 
         [Required]
         [MaxLength(ModelMaxLength)]
+        [Display(Name = "Model")]
         public string Model { get; set; } = null!;
 
         [Range(MinDistance,MaxDistance)]
+        [Display(Name = "Total Distance")]
         public double TotalDistance { get; set; }
 
         [Required]
+        [Display(Name = "Purchase date")]
         public DateTime PurchaseDate { get; set; }
 
         [Required]

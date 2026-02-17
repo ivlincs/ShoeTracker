@@ -1,10 +1,10 @@
 ﻿namespace ShoeTracker.Service.Core.Services
 {
     using Microsoft.EntityFrameworkCore;
+
     using ShoeTracker.Data;
     using ShoeTracker.Data.Models.Entities;
     using ShoeTracker.Service.Core.Interfaces;
-
 
     public class RunService : IRunService
     {

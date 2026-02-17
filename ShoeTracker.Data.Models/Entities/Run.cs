@@ -5,16 +5,17 @@
 
     using static ShoeTracker.Common.ValidationConstants.Run;
 
-
     public class Run
     {
         public int Id { get; set; }
 
         [Required]
         [Range(MinDistance,MaxDistance)]
+        [Display(Name = "Running mileage")]
         public double Distance { get; set; }
 
         [Required]
+        [Display(Name = "Date")]
         public DateTime Date { get; set; }
 
         [Required]

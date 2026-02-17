@@ -62,6 +62,7 @@
             if (!ModelState.IsValid)
             {
                 ViewBag.Categories = await _shoeService.GetAllCategoriesAsync(); 
+
                 return View(shoeModel);
             }
 
@@ -69,6 +70,7 @@
             shoeModel.TotalDistance = 0;
 
             await _shoeService.AddAsync(shoeModel);
+
             return RedirectToAction(nameof(Index));
 
         }
@@ -85,6 +87,7 @@
             }
 
             ViewBag.Categories = await _shoeService.GetAllCategoriesAsync();
+
             return View(shoe);
         }
 
@@ -105,6 +108,7 @@
             if (!ModelState.IsValid)
             {
                 ViewBag.Categories = await _shoeService.GetAllCategoriesAsync();
+
                 return View(shoeModel);
             }
 

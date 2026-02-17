@@ -52,6 +52,7 @@ namespace ShoeTracker.Web
             app.UseRouting();
 
             /* Allows us to use default Authorization of Identity */
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapControllerRoute(

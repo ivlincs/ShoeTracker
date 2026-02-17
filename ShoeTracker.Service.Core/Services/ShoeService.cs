@@ -73,8 +73,8 @@
                 ShoesNeedingReplacement = shoes.Count(s => s.TotalDistance >= 600),
                 AverageDistancePerShoe = shoes.Any() ? shoes.Average(s => s.TotalDistance) : 0,
             };
-
         }
+
         public async Task<IEnumerable<Category>> GetAllCategoriesAsync()
         {
             return await _context.Categories
