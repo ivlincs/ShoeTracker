@@ -51,20 +51,26 @@
 
         [HttpPost] // Shoe/Create
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Shoe model)
+        public async Task<IActionResult> Create(Shoe shoeModel)
         {
+            ModelState.Remove("Id");
+            ModelState.Remove("UserId");
+            ModelState.Remove("Runs");
+            ModelState.Remove("Category");
+            ModelState.Remove("TotalDistance");
+
             if (!ModelState.IsValid)
             {
-                ViewBag.Categories = await _shoeService.GetAllCategoriesAsync();
-
-                return View(model);
+                ViewBag.Categories = await _shoeService.GetAllCategoriesAsync(); 
+                return View(shoeModel);
             }
 
-            model.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier)!;
-            model.TotalDistance = 0;
+            shoeModel.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier)!;
+            shoeModel.TotalDistance = 0;
 
-            await _shoeService.AddAsync(model);
+            await _shoeService.AddAsync(shoeModel);
             return RedirectToAction(nameof(Index));
+
         }
 
         [HttpGet] // Shoe/Edit/Id
@@ -84,20 +90,26 @@
 
         [HttpPost] // Shoe/Edit/Id
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, Shoe model)
+        public async Task<IActionResult> Edit(int id, Shoe shoeModel)
         {
-            if (id != model.Id)
+            if (id != shoeModel.Id)
             {
                 return BadRequest();
             }
+
+            ModelState.Remove("UserId");
+            ModelState.Remove("Runs");
+            ModelState.Remove("Category");
+            ModelState.Remove("TotalDistance");
+
             if (!ModelState.IsValid)
             {
                 ViewBag.Categories = await _shoeService.GetAllCategoriesAsync();
-                return View(model);
+                return View(shoeModel);
             }
 
-            model.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier)!;
-            await _shoeService.UpdateAsync(model);
+            shoeModel.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier)!;
+            await _shoeService.UpdateAsync(shoeModel);
 
             return RedirectToAction(nameof(Index));
         }

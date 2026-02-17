@@ -10,6 +10,10 @@
     <form asp-action="Create" method="post" class="mt-4">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
+        <input type="hidden" asp-for="Id" />
+        <input type="hidden" asp-for="UserId" />
+        <input type="hidden" asp-for="TotalDistance" />
+
         <div class="mb-3">
             <label asp-for="Brand" class="form-label">Brand</label>
             <input asp-for="Brand" class="form-control" placeholder="Nike, Adidas, Asics..." />
@@ -36,7 +40,10 @@
 
         <div class="mb-3">
             <label asp-for="PurchaseDate" class="form-label">Purchase Date</label>
-            <input asp-for="PurchaseDate" type="date" class="form-control" />
+            <input asp-for="PurchaseDate"
+                   type="date"
+                   class="form-control"
+                   value="@DateTime.Now.ToString("yyyy-MM-dd")" />
             <span asp-validation-for="PurchaseDate" class="text-danger"></span>
         </div>
 

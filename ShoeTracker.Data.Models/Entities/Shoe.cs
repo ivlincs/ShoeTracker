@@ -15,7 +15,7 @@
         [MaxLength(50)]
         public string Model { get; set; } = null!;
 
-        [Range(0.1, 10000)]
+        [Range(0, 10000)]
         public double TotalDistance { get; set; }
 
         [Required]
@@ -33,7 +33,6 @@
 
         //Nav Property
         public ICollection<Run> Runs { get; set; } = new List<Run>();
-
 
     }
 }
