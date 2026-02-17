@@ -3,13 +3,15 @@
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
+    using static ShoeTracker.Common.ValidationConstants.Run;
+
 
     public class Run
     {
         public int Id { get; set; }
 
         [Required]
-        [Range(0.1, 500)]
+        [Range(MinDistance,MaxDistance)]
         public double Distance { get; set; }
 
         [Required]

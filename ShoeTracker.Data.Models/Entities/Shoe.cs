@@ -3,19 +3,21 @@
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
+    using static ShoeTracker.Common.ValidationConstants.Shoe;
+
     public class Shoe
     {
         public int Id { get; set; }
 
         [Required]
-        [MaxLength(50)]
+        [MaxLength(BrandMaxLength)]
         public string Brand { get; set; } = null!;
 
         [Required]
-        [MaxLength(50)]
+        [MaxLength(ModelMaxLength)]
         public string Model { get; set; } = null!;
 
-        [Range(0, 10000)]
+        [Range(MinDistance,MaxDistance)]
         public double TotalDistance { get; set; }
 
         [Required]
@@ -33,6 +35,5 @@
 
         //Nav Property
         public ICollection<Run> Runs { get; set; } = new List<Run>();
-
     }
 }

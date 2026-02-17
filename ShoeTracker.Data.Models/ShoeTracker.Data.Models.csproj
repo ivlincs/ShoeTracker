@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ShoeTracker.Common\ShoeTracker.Common.csproj" />
+  </ItemGroup>
+
 </Project>
