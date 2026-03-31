@@ -6,10 +6,11 @@ namespace ShoeTracker.Web
     using ShoeTracker.Data;
     using ShoeTracker.Service.Core.Interfaces;
     using ShoeTracker.Service.Core.Services;
+    using System.Threading.Tasks;
 
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
@@ -24,6 +25,7 @@ namespace ShoeTracker.Web
 
             /* Configure and register Identity for DI */
             builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
+                .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ShoeTrackerDbContext>();
 
             /* Register sevices */
@@ -59,6 +61,22 @@ namespace ShoeTracker.Web
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
             app.MapRazorPages();
+
+            using (var scope = app.Services.CreateScope())
+            {
+                var roleManager = scope.ServiceProvider
+                    .GetRequiredService<RoleManager<IdentityRole>>();
+
+                string[] roles = { "Administrator", "User" };
+
+                foreach (string role in roles)
+                {
+                    if(!await roleManager.RoleExistsAsync(role))
+                    {
+                        await roleManager.CreateAsync(new IdentityRole(role));
+                    }
+                }
+            }
 
             app.Run();
         }
