@@ -20,5 +20,17 @@
         {
             public const int NameMaxLength = 30;
         }
+
+        public static class UserProfile
+        {
+            public const int CityMaxLength = 50;
+            public const int BioMaxLength = 300;
+        }
+
+        public static class Comment
+        {
+            public const int ContentMinLength = 2;
+            public const int ContentMaxLength = 500;
+        }
     }
 }

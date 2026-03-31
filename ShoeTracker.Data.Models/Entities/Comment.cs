@@ -1,12 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ShoeTracker.Data.Models.Entities
+﻿namespace ShoeTracker.Data.Models.Entities
 {
-    internal class Comments
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
+
+    using static ShoeTracker.Common.ValidationConstants.Comment;
+
+    public class Comment
     {
+        public int Id { get; set; }
+
+        [Required(ErrorMessage = "Comment text is required")]
+        [MaxLength(ContentMaxLength)]
+        [Display(Name = "Comment")]
+        public string Content { get; set; } = null!;
+
+        public DateTime CreatedOn { get; set; } = DateTime.UtcNow;
+
+        [Required]
+        [ForeignKey(nameof(Shoe))]
+        public int ShoeId { get; set; }
+
+        public Shoe Shoe { get; set; } = null!;
+
+        [Required]
+        public string UserId { get; set; } = null!;
     }
 }

@@ -39,5 +39,7 @@
 
         //Nav Property
         public ICollection<Run> Runs { get; set; } = new List<Run>();
+
+        public ICollection<Comment> Comments { get; set; } = new List<Comment>();
     }
 }

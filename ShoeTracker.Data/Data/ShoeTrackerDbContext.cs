@@ -16,6 +16,9 @@
         public DbSet<Shoe> Shoes { get; set; } = null!;
         public DbSet<Run> Runs { get; set; } = null!;
         public DbSet<Category> Categories { get; set; } = null!;
+        public DbSet<Comment> Comments { get; set; } = null!;
+        public DbSet<UserProfile> UserProfiles { get; set; } = null!;
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -37,10 +40,21 @@
             //Seed for categories
             modelBuilder.Entity<Category>().HasData(
                 new Category { Id = 1, Name = "Road running" },
-                     new Category { Id = 2, Name = "Trail running"},
+                     new Category { Id = 2, Name = "Trail running" },
                      new Category { Id = 3, Name = "Race running" },
-                     new Category { Id = 4, Name = "Daily training"}
+                     new Category { Id = 4, Name = "Daily training" }
             );
+
+            // Comment -> Shoe relationship
+            modelBuilder.Entity<Comment>()
+                .HasOne(c => c.Shoe)
+                .WithMany(s => s.Comments)
+                .HasForeignKey(c => c.ShoeId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            //UserProfile - Primary key config.
+            modelBuilder.Entity<UserProfile>()
+                .HasKey(up => up.UserId);
         }
     }
 }
