@@ -12,10 +12,12 @@
     public class ShoeController : Controller
     {
         private readonly IShoeService _shoeService;
+        private readonly ICommentService _commentService;
 
-        public ShoeController(IShoeService shoeService )
+        public ShoeController(IShoeService shoeService, ICommentService commentService )
         {
             _shoeService = shoeService;
+            _commentService = commentService;
         }
 
         [HttpGet] // Shoe/Index
@@ -37,6 +39,8 @@
             {
                 return NotFound();
             }
+
+            ViewBag.Comments = await _commentService.GetByShoeIdAsync(id);
 
             return View(shoe);
         }
