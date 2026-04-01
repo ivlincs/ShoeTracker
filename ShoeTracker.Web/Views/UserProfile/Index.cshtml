@@ -1,0 +1,55 @@
+﻿@model ShoeTracker.Data.Models.Entities.UserProfile
+
+@{
+    ViewData["Title"] = "My Profile";
+}
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-8 mx-auto">
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0">
+                        <i class="bi bi-person-circle"></i> My Profile
+                    </h4>
+                </div>
+                <div class="card-body">
+                    <dl class="row">
+                        <dt class="col-sm-4">City</dt>
+                        <dd class="col-sm-8">
+                            @(string.IsNullOrEmpty(Model.City) ? "Not set" : Model.City)
+                        </dd>
+
+                        <dt class="col-sm-4">About me</dt>
+                        <dd class="col-sm-8">
+                            @(string.IsNullOrEmpty(Model.Bio) ? "No bio yet" : Model.Bio)
+                        </dd>
+
+                        <dt class="col-sm-4">Yearly Goal</dt>
+                        <dd class="col-sm-8">
+                            @if (Model.YearlyGoal > 0)
+                            {
+                                <span>@Model.YearlyGoal.ToString("F0") km</span>
+                            }
+                            else
+                            {
+                                <span class="text-muted">No goal set</span>
+                            }
+                        </dd>
+
+                        <dt class="col-sm-4">Member Since</dt>
+                        <dd class="col-sm-8">
+                            @Model.CreatedOn.ToString("MMMM yyyy")
+                        </dd>
+                    </dl>
+                </div>
+                <div class="card-footer">
+                    <a asp-action="Edit" class="btn btn-warning">
+                        <i class="bi bi-pencil"></i> Edit Profile
+                    </a>
+                    <a asp-controller="Shoe" asp-action="Index" class="btn btn-outline-secondary">My Shoes</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

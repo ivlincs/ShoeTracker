@@ -31,6 +31,8 @@ namespace ShoeTracker.Web
             /* Register sevices */
             builder.Services.AddScoped<IShoeService, ShoeService>();
             builder.Services.AddScoped<IRunService, RunService>();
+            builder.Services.AddScoped<ICommentService, CommentService>();
+            builder.Services.AddScoped<IUserProfileService, UserProfileService>();
 
             builder.Services.AddControllersWithViews();
 

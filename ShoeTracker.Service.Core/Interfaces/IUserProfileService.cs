@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ShoeTracker.Service.Core.Interfaces
+﻿namespace ShoeTracker.Service.Core.Interfaces
 {
-    internal interface IUserProfileService
+    using ShoeTracker.Data.Models.Entities;
+
+    public interface IUserProfileService
     {
+        Task<UserProfile?> GetByUserIdAsync(string userId);
+
+        Task CreateOrUpdateAsync(UserProfile profile);
     }
 }

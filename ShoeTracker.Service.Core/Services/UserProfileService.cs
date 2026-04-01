@@ -1,12 +1,46 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ShoeTracker.Service.Core.Services
+﻿namespace ShoeTracker.Service.Core.Services
 {
-    internal class UserProfileService
+    using Microsoft.EntityFrameworkCore;
+
+    using ShoeTracker.Data;
+    using ShoeTracker.Data.Models.Entities;
+    using ShoeTracker.Service.Core.Interfaces;
+
+    public class UserProfileService : IUserProfileService
     {
+        private readonly ShoeTrackerDbContext _context;
+
+        public UserProfileService(ShoeTrackerDbContext context)
+        {
+            _context = context;
+        }
+
+        public async Task<UserProfile?> GetByUserIdAsync(string userId)
+        {
+            return await _context.UserProfiles
+                .FirstOrDefaultAsync(up => up.UserId == userId);
+        }
+
+        public async Task CreateOrUpdateAsync(UserProfile profile)
+        {
+            UserProfile? existing = await _context.UserProfiles
+                .FirstOrDefaultAsync(up => up.UserId == profile.UserId);
+
+            if (existing == null)
+            {
+                await _context.UserProfiles.AddAsync(profile);
+            }
+
+            else
+            {
+                existing.City = profile.City;
+                existing.Bio = profile.Bio;
+                existing.YearlyGoal = profile.YearlyGoal;
+                _context.UserProfiles.Update(existing);
+            }
+
+            await _context.SaveChangesAsync();
+
+        }
     }
 }
