@@ -8,11 +8,19 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Areas\Admin \**" />
+    <Content Remove="Areas\Admin \**" />
+    <EmbeddedResource Remove="Areas\Admin \**" />
+    <None Remove="Areas\Admin \**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="8.0.24" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.24" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="8.0.24" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.24" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.24" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.23" />
   </ItemGroup>
 
   <ItemGroup>
@@ -20,6 +28,10 @@
     <ProjectReference Include="..\ShoeTracker.Data.Models\ShoeTracker.Data.Models.csproj" />
     <ProjectReference Include="..\ShoeTracker.Data\ShoeTracker.Data.csproj" />
     <ProjectReference Include="..\ShoeTracker.Service.Core\ShoeTracker.Service.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Areas\Admin\Models\" />
   </ItemGroup>
 
 </Project>
