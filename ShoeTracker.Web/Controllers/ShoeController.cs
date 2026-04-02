@@ -83,6 +83,8 @@
 
             await _shoeService.AddAsync(shoeModel);
 
+            TempData["SuccessMessage"] = $"Shoe '{shoeModel.Brand} {shoeModel.Model}' added successfully!";
+
             return RedirectToAction(nameof(Index));
 
         }
@@ -127,6 +129,8 @@
             shoeModel.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier)!;
             await _shoeService.UpdateAsync(shoeModel);
 
+            TempData["SuccessMessage"] = $"Shoe '{shoeModel.Brand} {shoeModel.Model}' updated successfully!";
+
             return RedirectToAction(nameof(Index));
         }
 
@@ -149,6 +153,9 @@
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             await _shoeService.DeleteAsync(id);
+
+            TempData["SuccessMessage"] = "Shoe deleted successfully!";
+
             return RedirectToAction(nameof(Index));
         }
 
