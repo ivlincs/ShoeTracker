@@ -7,6 +7,7 @@
     using ShoeTracker.Data.Models.Entities;
     using ShoeTracker.Service.Core.Interfaces;
     using ShoeTracker.Data.Models.Statistics;
+    using ShoeTracker.Common;
 
     [Authorize]
     public class ShoeController : Controller
@@ -21,10 +22,17 @@
         }
 
         [HttpGet] // Shoe/Index
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchTerm = "", int pageNumber = 1)
         {
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier)!;
-            IEnumerable<Shoe> shoes = await _shoeService.GetAllAsync(userId);
+
+            const int pageSize = 6;
+
+            ViewData["SearchTerm"] = searchTerm;
+
+            PaginatedList<Shoe> shoes = string.IsNullOrWhiteSpace(searchTerm)
+                ? await _shoeService.GetPaginatedAsync(userId, pageNumber, pageSize)
+                : await _shoeService.SearchAsync(userId, searchTerm, pageNumber, pageSize);
 
             return View(shoes);
         }

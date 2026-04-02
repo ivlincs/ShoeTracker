@@ -8,6 +8,7 @@
     using ShoeTracker.Data.Models.Entities;
     using ShoeTracker.Data.Models.Statistics;
     using ShoeTracker.Service.Core.Interfaces;
+    using ShoeTracker.Common;
 
     public class ShoeService : IShoeService
     {
@@ -79,6 +80,39 @@
         {
             return await _context.Categories
                 .ToListAsync();
+        }
+
+        public async Task<PaginatedList<Shoe>> GetPaginatedAsync(string userId, int pageIndex, int pageSize)
+        {
+            IQueryable<Shoe> query = _context.Shoes
+                .Where(s => s.UserId == userId)
+                .Include(s => s.Runs)
+                .Include(s => s.Category)
+                .OrderByDescending(s => s.PurchaseDate);
+
+            return await PaginatedList<Shoe>.CreateAsync(query, pageIndex, pageSize);
+        }
+
+        public async Task<PaginatedList<Shoe>> SearchAsync(string userId, string searchTerm, int pageIndex, int pageSize)
+        {
+            IQueryable<Shoe> query = _context.Shoes
+                .Where(s => s.UserId == userId)
+                .Include(s => s.Runs)
+                .Include(s => s.Category)
+                .AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(searchTerm))
+            {
+                string term = searchTerm.ToLower();
+
+                query = query.Where(s =>
+                    s.Brand.ToLower().Contains(term) ||
+                    s.Model.ToLower().Contains(term) ||
+                    s.Category.Name.ToLower().Contains(term)
+                );
+            }
+
+            return await PaginatedList<Shoe>.CreateAsync(query.OrderByDescending(s => s.PurchaseDate), pageIndex, pageSize);
         }
     }
 }

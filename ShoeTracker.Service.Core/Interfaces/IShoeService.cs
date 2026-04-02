@@ -2,6 +2,7 @@
 {
     using ShoeTracker.Data.Models.Entities;
     using ShoeTracker.Data.Models.Statistics;
+    using ShoeTracker.Common;
 
     public interface IShoeService
     {
@@ -18,5 +19,9 @@
         Task<ShoeStatistics> GetStatisticsAsync(string userId);
 
         Task<IEnumerable<Category>> GetAllCategoriesAsync();
+
+        Task<PaginatedList<Shoe>> GetPaginatedAsync(string userId, int pageIndex, int pageSize);
+
+        Task<PaginatedList<Shoe>> SearchAsync(string userId, string searchTerm, int pageIndex, int pageSize);
     }
 }

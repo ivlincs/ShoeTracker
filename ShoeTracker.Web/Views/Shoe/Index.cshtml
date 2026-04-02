@@ -1,4 +1,5 @@
-﻿@model IEnumerable<ShoeTracker.Data.Models.Entities.Shoe>
+﻿@using ShoeTracker.Common
+@model PaginatedList<ShoeTracker.Data.Models.Entities.Shoe>
 
 @{
     ViewData["Title"] = "My Running Shoes";
@@ -7,7 +8,31 @@
 <div class="container mt-4">
     <div class="row mb-4">
         <div class="col">
-            <h2><i class="bi bi-shoe-fill"></i> My Running Shoes</h2>
+            <h2><i class="bi bi-shoe-fill"></i> My Shoes</h2>
+            <form method="get" asp-action="Index" class="mb-4">
+                <div class="input-group">
+                    <input type="text"
+                           name="searchTerm"
+                           value="@ViewData["SearchTerm"]"
+                           class="form-control"
+                           placeholder="Search by brand, model or category..." />
+                    <button type="submit" class="btn btn-primary">
+                        <i class="bi bi-search"></i> Search
+                    </button>
+                    @if (!string.IsNullOrEmpty(ViewData["SearchTerm"]?.ToString()))
+                    {
+                        <a asp-action="Index" class="btn btn-outline-secondary">
+                            <i class="bi bi-x-circle"></i> Clear
+                        </a>
+                    }
+                </div>
+                @if (!string.IsNullOrEmpty(ViewData["SearchTerm"]?.ToString()))
+                {
+                    <small class="text-muted mt-1 d-block">
+                        @Model.TotalCount result(s) for "@ViewData["SearchTerm"]"
+                    </small>
+                }
+            </form>
         </div>
         <div class="col text-end">
             <a asp-action="Create" class="btn btn-success">
@@ -39,8 +64,8 @@
                             </p>
 
                             @{
-                                var percentage = (shoe.TotalDistance / 600.0) * 100;
-                                var progressClass = percentage < 50 ? "bg-success" : percentage < 80 ? "bg-warning" : "bg-danger";
+                                double percentage = (shoe.TotalDistance / 600.0) * 100;
+                                string progressClass = percentage < 50 ? "bg-success" : percentage < 80 ? "bg-warning" : "bg-danger";
                             }
 
                             <div class="progress mb-3" style="height: 25px;">
@@ -67,5 +92,52 @@
                 </div>
             }
         </div>
+
+        <!-- Pagination -->
+        @if (Model.TotalPages > 1)
+        {
+            <nav aria-label="Shoe pagination" class="mt-4">
+                <ul class="pagination justify-content-center">
+                    <!-- Previous Button -->
+                    <li class="page-item @(!Model.HasPreviousPage ? "disabled" : "")">
+                        <a class="page-link"
+                           asp-action="Index"
+                           asp-route-pageNumber="@(Model.PageIndex - 1)"
+                           asp-route-searchTerm="@ViewData["SearchTerm"]">
+                            ‹ Prev
+                        </a>
+                    </li>
+
+                    <!-- Page Numbers -->
+                    @for (int i = 1; i <= Model.TotalPages; i++)
+                    {
+                        <li class="page-item @(i == Model.PageIndex ? "active" : "")">
+                            <a class="page-link"
+                               asp-action="Index"
+                               asp-route-pageNumber="@i"
+                               asp-route-searchTerm="@ViewData["SearchTerm"]">
+                                @i
+                            </a>
+                        </li>
+                    }
+
+                    <!-- Next Button -->
+                    <li class="page-item @(!Model.HasNextPage ? "disabled" : "")">
+                        <a class="page-link"
+                           asp-action="Index"
+                           asp-route-pageNumber="@(Model.PageIndex + 1)"
+                           asp-route-searchTerm="@ViewData["SearchTerm"]">
+                            Next ›
+                        </a>
+                    </li>
+                </ul>
+
+                <!-- Page Info -->
+                <p class="text-center text-muted small">
+                    Page @Model.PageIndex of @Model.TotalPages
+                    (@Model.TotalCount total shoes)
+                </p>
+            </nav>
+        }
     }
 </div>
