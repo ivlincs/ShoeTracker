@@ -21,6 +21,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShoeTracker.Service.Core", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShoeTracker.Common", "ShoeTracker.Common\ShoeTracker.Common.csproj", "{D07D6A08-B910-4455-988E-20E72D7F750C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShoeTracker.Tests", "ShoeTracker.Tests\ShoeTracker.Tests.csproj", "{56CDE6E0-7193-4FC2-8C80-AE20D3F232E1}"
+	ProjectSection(ProjectDependencies) = postProject
+		{3D65810A-BDB6-4900-8AAF-983E012363DF} = {3D65810A-BDB6-4900-8AAF-983E012363DF}
+		{97579B77-2747-43F1-AF08-CCA90C6AE9F0} = {97579B77-2747-43F1-AF08-CCA90C6AE9F0}
+		{9C30330B-B8BD-4AF7-BDF5-2D11DD8ACEC7} = {9C30330B-B8BD-4AF7-BDF5-2D11DD8ACEC7}
+		{D07D6A08-B910-4455-988E-20E72D7F750C} = {D07D6A08-B910-4455-988E-20E72D7F750C}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,6 +55,10 @@ Global
 		{D07D6A08-B910-4455-988E-20E72D7F750C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D07D6A08-B910-4455-988E-20E72D7F750C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D07D6A08-B910-4455-988E-20E72D7F750C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{56CDE6E0-7193-4FC2-8C80-AE20D3F232E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{56CDE6E0-7193-4FC2-8C80-AE20D3F232E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{56CDE6E0-7193-4FC2-8C80-AE20D3F232E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{56CDE6E0-7193-4FC2-8C80-AE20D3F232E1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
