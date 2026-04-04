@@ -45,7 +45,7 @@ namespace ShoeTracker.Web
             }
             else
             {
-                app.UseExceptionHandler("/Error/500");               
+                app.UseExceptionHandler("/Error/500");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
@@ -78,7 +78,7 @@ namespace ShoeTracker.Web
 
                 foreach (string role in roles)
                 {
-                    if(!await roleManager.RoleExistsAsync(role))
+                    if (!await roleManager.RoleExistsAsync(role))
                     {
                         await roleManager.CreateAsync(new IdentityRole(role));
                     }

@@ -9,8 +9,8 @@
     {
         public int Id { get; set; }
 
-        [Required(ErrorMessage = "Comment text is required")]
-        [MaxLength(ContentMaxLength)]
+        [Required(ErrorMessage = "Comment content is required")]
+        [MaxLength(ContentMaxLength, ErrorMessage = "Comment must be between 5 and 500 characters")]
         [Display(Name = "Comment")]
         public string Content { get; set; } = null!;
 

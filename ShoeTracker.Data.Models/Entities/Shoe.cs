@@ -9,12 +9,12 @@
     {
         public int Id { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Brand is required.")]
         [MaxLength(BrandMaxLength)]
         [Display(Name = "Brand")]
         public string Brand { get; set; } = null!;
 
-        [Required]
+        [Required(ErrorMessage = "Model is required.")]
         [MaxLength(ModelMaxLength)]
         [Display(Name = "Model")]
         public string Model { get; set; } = null!;
@@ -23,14 +23,14 @@
         [Display(Name = "Total Distance")]
         public double TotalDistance { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Purchase date is required")]
         [Display(Name = "Purchase date")]
         public DateTime PurchaseDate { get; set; }
 
         [Required]
         public string UserId { get; set; } = null!;
 
-        [Required]
+        [Required(ErrorMessage = "Category is required.")]
         [Display(Name = "Shoe Category")]
         public int CategoryId { get; set; }
 

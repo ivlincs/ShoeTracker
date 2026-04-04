@@ -9,12 +9,12 @@
     {
         public int Id { get; set; }
 
-        [Required]
-        [Range(MinDistance,MaxDistance)]
+        [Required(ErrorMessage = "Distance is required")]
+        [Range(MinDistance,MaxDistance,ErrorMessage = "Distance must be between 0.1 and 100km.")]
         [Display(Name = "Running mileage")]
         public double Distance { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Date is required")]
         [Display(Name = "Date")]
         public DateTime Date { get; set; }
 

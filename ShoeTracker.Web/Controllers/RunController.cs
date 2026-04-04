@@ -20,7 +20,7 @@
         }
 
         [HttpGet] // Run/AddRun/Id
-        public  async Task<IActionResult> AddRun(int shoeId)
+        public async Task<IActionResult> AddRun(int shoeId)
         {
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier)!;
             Shoe? shoe = await _shoeService.GetByIdAsync(shoeId, userId);
@@ -44,11 +44,11 @@
                 ModelState.AddModelError("", "Distance must be between 0.1 and 200km");
 
                 string userId = User.FindFirstValue(ClaimTypes.NameIdentifier)!;
-                Shoe? shoe = await _shoeService.GetByIdAsync(shoeId,userId);
+                Shoe? shoe = await _shoeService.GetByIdAsync(shoeId, userId);
 
                 ViewBag.Shoe = shoe;
 
-                return View();           
+                return View();
             }
 
             try
@@ -58,14 +58,14 @@
 
                 TempData["SuccessMessage"] = $"Succesfully added {distance:F1} km!";
 
-                return RedirectToAction("Details", "Shoe", new {id = shoeId});
+                return RedirectToAction("Details", "Shoe", new { id = shoeId });
             }
             catch (Exception e)
             {
                 ModelState.AddModelError("", e.Message);
 
                 string userId = User.FindFirstValue(ClaimTypes.NameIdentifier)!;
-                Shoe? shoe = await _shoeService.GetByIdAsync (shoeId,userId);
+                Shoe? shoe = await _shoeService.GetByIdAsync(shoeId, userId);
 
                 ViewBag.Shoe = shoe;
 

@@ -45,5 +45,5 @@
             await _context.Runs.AddAsync(run);
             await _context.SaveChangesAsync();
         }
-    }    
+    }
 }

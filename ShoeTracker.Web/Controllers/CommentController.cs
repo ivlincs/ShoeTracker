@@ -42,7 +42,7 @@
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Delete (int commentId, int shoeId)
+        public async Task<IActionResult> Delete(int commentId, int shoeId)
         {
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier)!;
             await _commentService.DeleteAsync(commentId, userId);

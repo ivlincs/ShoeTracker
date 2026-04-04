@@ -40,7 +40,7 @@
 
             profile ??= new UserProfile
             {
-                UserId = userId,              
+                UserId = userId,
             };
 
             return View(profile);

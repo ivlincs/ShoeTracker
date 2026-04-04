@@ -16,7 +16,7 @@
         private readonly ICommentService _commentService;
         private const int DEFAULT_PAGE_SIZE = 6;
 
-        public ShoeController(IShoeService shoeService, ICommentService commentService )
+        public ShoeController(IShoeService shoeService, ICommentService commentService)
         {
             _shoeService = shoeService;
             _commentService = commentService;
@@ -45,6 +45,7 @@
             if (shoe == null)
             {
                 return NotFound();
+                return NotFound();
             }
 
             ViewBag.Comments = await _commentService.GetByShoeIdAsync(id);
@@ -72,7 +73,7 @@
 
             if (!ModelState.IsValid)
             {
-                ViewBag.Categories = await _shoeService.GetAllCategoriesAsync(); 
+                ViewBag.Categories = await _shoeService.GetAllCategoriesAsync();
 
                 return View(shoeModel);
             }
@@ -92,7 +93,7 @@
         public async Task<IActionResult> Edit(int id)
         {
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier)!;
-            Shoe? shoe = await _shoeService.GetByIdAsync(id , userId);
+            Shoe? shoe = await _shoeService.GetByIdAsync(id, userId);
 
             if (shoe == null)
             {
@@ -164,7 +165,7 @@
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier)!;
             ShoeStatistics? stats = await _shoeService.GetStatisticsAsync(userId);
 
-            return View(stats); 
+            return View(stats);
         }
     }
 }
