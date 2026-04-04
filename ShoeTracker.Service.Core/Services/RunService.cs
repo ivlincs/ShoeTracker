@@ -14,6 +14,14 @@
         {
             _context = context;
         }
+        /// <summary>
+        /// Adds new run to a shoe and updates the shoes`s total distance.
+        /// </summary>
+        /// <param name="shoeId">The shoe ID to add the run to</param>
+        /// <param name="distance">The distance of the run in km</param>
+        /// <param name="userId">The user ID to verify shoe ownership</param>
+        /// <returns></returns>
+        /// <exception cref="InvalidOperationException"></exception>
         public async Task AddRunAsync(int shoeId, double distance, string userId)
         {
             Shoe? shoe = await _context.Shoes

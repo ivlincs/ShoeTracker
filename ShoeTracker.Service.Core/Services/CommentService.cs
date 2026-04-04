@@ -16,6 +16,14 @@
             _context = context;
         }
 
+        /// <summary>
+        /// Adds a new comment to a shoe.
+        /// </summary>
+        /// <param name="shoeId">The shoe ID to add the comment to.</param>
+        /// <param name="content">The comment text content</param>
+        /// <param name="userId">The user Id to verify shoe ownership</param>
+        /// <returns></returns>
+        /// <exception cref="InvalidOperationException"></exception>
         public async Task AddAsync(int shoeId, string content, string userId)
         {
             Shoe? shoe = await _context.Shoes
@@ -38,6 +46,12 @@
             await _context.SaveChangesAsync();
         }
 
+        /// <summary>
+        /// Delete a comment from the database.
+        /// </summary>
+        /// <param name="commentId">The comment ID to delete</param>
+        /// <param name="userId">The user ID to verify comment ownership</param>
+        /// <returns></returns>
         public async Task DeleteAsync(int commentId, string userId)
         {
             Comment? comment = await _context.Comments
@@ -51,6 +65,11 @@
             }
         }
 
+        /// <summary>
+        /// Retrieves all comments for a specifics shoe.
+        /// </summary>
+        /// <param name="shoeId">The shoe ID to retrieve comments for</param>
+        /// <returns>A collection of comments ordered by creation date (newest first).</returns>
         public async Task<IEnumerable<Comment>> GetByShoeIdAsync(int shoeId)
         {
             return await _context.Comments

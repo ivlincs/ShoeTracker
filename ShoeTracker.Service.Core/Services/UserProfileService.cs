@@ -15,12 +15,21 @@
             _context = context;
         }
 
+        /// <summary>
+        /// Retrieves a user's profile by user ID.
+        /// </summary>
+        /// <param name="userId">The unique identifier of the user</param>
+        /// <returns>The user profile if found, otherwise null </returns>
         public async Task<UserProfile?> GetByUserIdAsync(string userId)
         {
             return await _context.UserProfiles
                 .FirstOrDefaultAsync(up => up.UserId == userId);
         }
 
+        /// <summary>
+        /// Creates a new user profile or updates an existing one.
+        /// </summary>
+        /// <param name="profile">The user profile entity to create or update</param>
         public async Task CreateOrUpdateAsync(UserProfile profile)
         {
             UserProfile? existing = await _context.UserProfiles
@@ -40,7 +49,6 @@
             }
 
             await _context.SaveChangesAsync();
-
         }
     }
 }

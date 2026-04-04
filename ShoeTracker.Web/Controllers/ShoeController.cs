@@ -14,6 +14,7 @@
     {
         private readonly IShoeService _shoeService;
         private readonly ICommentService _commentService;
+        private const int DEFAULT_PAGE_SIZE = 6;
 
         public ShoeController(IShoeService shoeService, ICommentService commentService )
         {
@@ -26,13 +27,11 @@
         {
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier)!;
 
-            const int pageSize = 6;
-
             ViewData["SearchTerm"] = searchTerm;
 
             PaginatedList<Shoe> shoes = string.IsNullOrWhiteSpace(searchTerm)
-                ? await _shoeService.GetPaginatedAsync(userId, pageNumber, pageSize)
-                : await _shoeService.SearchAsync(userId, searchTerm, pageNumber, pageSize);
+                ? await _shoeService.GetPaginatedAsync(userId, pageNumber, DEFAULT_PAGE_SIZE)
+                : await _shoeService.SearchAsync(userId, searchTerm, pageNumber, DEFAULT_PAGE_SIZE);
 
             return View(shoes);
         }
