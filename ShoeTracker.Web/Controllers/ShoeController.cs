@@ -8,6 +8,7 @@
     using ShoeTracker.Service.Core.Interfaces;
     using ShoeTracker.Data.Models.Statistics;
     using ShoeTracker.Common;
+    using Microsoft.AspNetCore.Mvc.ModelBinding;
 
     [Authorize]
     public class ShoeController : Controller
@@ -45,7 +46,6 @@
             if (shoe == null)
             {
                 return NotFound();
-                return NotFound();
             }
 
             ViewBag.Comments = await _commentService.GetByShoeIdAsync(id);
@@ -70,6 +70,7 @@
             ModelState.Remove("Runs");
             ModelState.Remove("Category");
             ModelState.Remove("TotalDistance");
+            ModelState.Remove("Notes");
 
             if (!ModelState.IsValid)
             {
@@ -118,6 +119,7 @@
             ModelState.Remove("Runs");
             ModelState.Remove("Category");
             ModelState.Remove("TotalDistance");
+            ModelState.Remove("Notes");
 
             if (!ModelState.IsValid)
             {

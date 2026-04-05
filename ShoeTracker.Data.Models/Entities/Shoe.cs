@@ -37,6 +37,9 @@
         [ForeignKey(nameof(CategoryId))]
         public Category Category { get; set; } = null!;
 
+        [StringLength(500, ErrorMessage = "Notes cannot exceed 500 characters.")]
+        public string? Notes { get; set; }
+
         //Nav Property
         public ICollection<Run> Runs { get; set; } = new List<Run>();
 
