@@ -42,7 +42,11 @@
                 new Category { Id = 1, Name = "Road running" },
                      new Category { Id = 2, Name = "Trail running" },
                      new Category { Id = 3, Name = "Race running" },
-                     new Category { Id = 4, Name = "Daily training" }
+                     new Category { Id = 4, Name = "Daily training" },
+                     new Category { Id = 5, Name = "Hybrid training" },
+                     new Category { Id = 6, Name = "Recovery running" },
+                     new Category { Id = 7, Name = "Track & Field running" },
+                     new Category { Id = 8, Name = "Walking" }
             );
 
             // Comment -> Shoe relationship
