@@ -87,8 +87,22 @@
     </div>
 
     <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2026 - ShoeTracker - <a asp-controller="Home" asp-action="Privacy">Privacy</a>
+        <div class="container text-center">
+            <p class="mb-1">&copy; 2026 ShoeTracker - Built with ❤️ for runners</p>
+            <p class="mb-0">
+                <a asp-controller="Home" asp-action="Index">Home</a> |
+                <a asp-controller="Home" asp-action="Privacy">Privacy</a>
+                @if (User.Identity!.IsAuthenticated)
+                {
+                    <text> | </text>
+                    <a asp-controller="Shoe" asp-action="Dashboard">Statistics</a>
+                }
+                else
+                {
+                    <text> | </text>
+                    <a asp-area="Identity" asp-page="/Account/Register">Get Started</a>
+                }
+            </p>
         </div>
     </footer>
 
