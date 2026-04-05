@@ -154,7 +154,7 @@
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            await _shoeService.DeleteAsync(id);
+            await _shoeService.ArchiveAsync(id);
 
             TempData["SuccessMessage"] = "Shoe deleted successfully!";
 
@@ -168,6 +168,15 @@
             ShoeStatistics? stats = await _shoeService.GetStatisticsAsync(userId);
 
             return View(stats);
+        }
+
+        [HttpGet] // Shoe/Archived
+        public async Task<IActionResult> Archived()
+        {
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier)!;
+            IEnumerable<Shoe> archivedShoes = await _shoeService.GetArchivedAsync(userId);
+
+            return View(archivedShoes);
         }
     }
 }

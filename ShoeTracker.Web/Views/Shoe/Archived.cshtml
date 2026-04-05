@@ -1,0 +1,39 @@
+﻿@model IEnumerable<ShoeTracker.Data.Models.Entities.Shoe>
+
+@{
+    ViewData["Title"] = "Archived Shoes";
+}
+
+<h2><i class="bi bi-archive"></i> Archived Shoes</h2>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-info">
+        <i class="bi bi-info-circle"></i> No archived shoes yet.
+    </div>
+}
+else
+{
+    <div class="row">
+        @foreach (var shoe in Model)
+        {
+            <div class="col-md-4 mb-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">@shoe.Brand @shoe.Model</h5>
+                        <p class="card-text">
+                            <strong>Category:</strong> @shoe.Category?.Name<br />
+                            <strong>Total Distance:</strong> @shoe.TotalDistance km<br />
+                            <strong>Purchase Date:</strong> @shoe.PurchaseDate.ToString("dd MMM yyyy")
+                        </p>
+                        <span class="badge bg-secondary">Archived</span>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}
+
+<a asp-action="Index" class="btn btn-secondary">
+    <i class="bi bi-arrow-left"></i> Back to Active Shoes
+</a>

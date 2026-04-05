@@ -40,6 +40,8 @@
         [StringLength(500, ErrorMessage = "Notes cannot exceed 500 characters.")]
         public string? Notes { get; set; }
 
+        public bool IsArchived { get; set; } = false;
+
         //Nav Property
         public ICollection<Run> Runs { get; set; } = new List<Run>();
 

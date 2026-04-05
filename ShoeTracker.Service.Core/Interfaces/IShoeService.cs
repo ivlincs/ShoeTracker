@@ -16,9 +16,13 @@
 
         Task DeleteAsync(int id);
 
+        Task ArchiveAsync(int id);
+
         Task<ShoeStatistics> GetStatisticsAsync(string userId);
 
         Task<IEnumerable<Category>> GetAllCategoriesAsync();
+
+        Task<IEnumerable<Shoe>> GetArchivedAsync(string userId);
 
         Task<PaginatedList<Shoe>> GetPaginatedAsync(string userId, int pageIndex, int pageSize);
 

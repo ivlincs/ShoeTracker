@@ -28,7 +28,7 @@
         public async Task<IEnumerable<Shoe>> GetAllAsync(string userId)
         {
             return await _context.Shoes
-                .Where(s => s.UserId == userId)
+                .Where(s => s.UserId == userId && !s.IsArchived)
                 .Include(s => s.Runs)
                 .Include(s => s.Category)
                 .OrderByDescending(s => s.PurchaseDate)
@@ -91,7 +91,7 @@
         public async Task<ShoeStatistics> GetStatisticsAsync(string userId)
         {
             List<Shoe>? shoes = await _context.Shoes
-                .Where(s => s.UserId == userId)
+                .Where(s => s.UserId == userId && !s.IsArchived)
                 .Include(s => s.Runs)
                 .ToListAsync();
 
@@ -125,7 +125,7 @@
         public async Task<PaginatedList<Shoe>> GetPaginatedAsync(string userId, int pageIndex, int pageSize)
         {
             IQueryable<Shoe> query = _context.Shoes
-                .Where(s => s.UserId == userId)
+                .Where(s => s.UserId == userId && !s.IsArchived)
                 .Include(s => s.Runs)
                 .Include(s => s.Category)
                 .OrderByDescending(s => s.PurchaseDate);
@@ -144,7 +144,7 @@
         public async Task<PaginatedList<Shoe>> SearchAsync(string userId, string searchTerm, int pageIndex, int pageSize)
         {
             IQueryable<Shoe> query = _context.Shoes
-                .Where(s => s.UserId == userId)
+                .Where(s => s.UserId == userId && !s.IsArchived)
                 .Include(s => s.Runs)
                 .Include(s => s.Category)
                 .AsQueryable();
@@ -161,6 +161,36 @@
             }
 
             return await PaginatedList<Shoe>.CreateAsync(query.OrderByDescending(s => s.PurchaseDate), pageIndex, pageSize);
+        }
+
+        /// <summary>
+        /// Archives a shoe instead of deleting it (soft delete).    
+        /// </summary>
+        /// <param name="id">The shoe ID to archive.</param>
+        public async Task ArchiveAsync(int id)
+        {
+            Shoe? shoe = await _context.Shoes.FindAsync(id);
+            if (shoe != null)
+            {
+                shoe.IsArchived = true;
+                _context.Shoes.Update(shoe);
+                await _context.SaveChangesAsync();
+            }
+        }
+
+        /// <summary>
+        /// Retrivesa ll archived shoes for user.
+        /// </summary>
+        /// <param name="userId">The user ID.</param>
+        /// <returns>A collection of archived shoes.</returns>
+        public async Task<IEnumerable<Shoe>> GetArchivedAsync(string userId)
+        {
+            return await _context.Shoes
+                .Where(s => s.UserId == userId && s.IsArchived)
+                .Include(s => s.Category)
+                .Include(s => s.Runs)
+                .OrderByDescending(s => s.PurchaseDate)
+                .ToListAsync();
         }
     }
 }
