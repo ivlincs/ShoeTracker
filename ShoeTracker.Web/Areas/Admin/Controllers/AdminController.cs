@@ -22,12 +22,12 @@
 
         public async Task<IActionResult> Index()
         {
-            int totalShoe = await _context.Shoes.CountAsync();
+            int totalShoes = await _context.Shoes.CountAsync();
             int totalRuns = await _context.Runs.CountAsync();
             int totalUsers = await _userManager.Users.CountAsync();
             int totalComments = await _context.Comments.CountAsync();
 
-            ViewBag.TotalShoe = totalShoe;
+            ViewBag.TotalShoes = totalShoes;
             ViewBag.TotalRuns = totalRuns;
             ViewBag.TotalUsers = totalUsers;
             ViewBag.TotalComments = totalComments;
