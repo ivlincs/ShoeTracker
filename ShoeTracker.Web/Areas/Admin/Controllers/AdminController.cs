@@ -35,7 +35,7 @@
             ViewBag.RecentShoes = await _context.Shoes
                 .Include(s => s.Category)
                 .OrderByDescending(s => s.PurchaseDate)
-                .Take(5)
+                .Take(50)
                 .ToListAsync();
 
             return View();
